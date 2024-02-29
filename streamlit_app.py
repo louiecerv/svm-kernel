@@ -27,6 +27,9 @@ def app():
     elif st.session_state["current_form"] == 3:
         display_form3()
 
+    if "form2" not in st.session_state: 
+        st.session_state["form2"] = []
+
 def display_form1():
     st.session_state["current_form"] = 1
     form1 = st.form("intro")
@@ -51,7 +54,8 @@ def display_form1():
 def display_form2():
     st.session_state["current_form"] = 2
     form2 = st.form("training")
-    form2.subheader('Dataset')     
+    form2.subheader('Dataset') 
+    st.session_state["form2"] = form2    
 
     df = pd.read_csv('data_decision_trees.csv', header=None)
     X = df.iloc[:,:-1].values
@@ -147,7 +151,7 @@ def visualize_classifier(classifier, X, y, title=''):
     ax.set_yticks(np.arange(int(X[:, 1].min() - 1), int(X[:, 1].max() + 1), 1.0))
 
     
-    form2.pyplot(fig)
+    st.session_state["form2"].pyplot(fig)
 
 
 if __name__ == "__main__":
