@@ -6,6 +6,7 @@ import seaborn as sns; sns.set()
 from sklearn import svm
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
 
 # Define the Streamlit app
 def app():
@@ -67,7 +68,7 @@ def display_form2():
 
     submit2 = form2.form_submit_button("Train")
     if submit2:     
-           
+
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=3)
         clfSVM = svm.SVC(kernel='rbf', C=1000, gamma=1.0)
         clfSVM.fit(X_train, y_train)
