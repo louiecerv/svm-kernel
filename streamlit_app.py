@@ -6,7 +6,7 @@ def app():
         st.session_state.reset_app = False
 
     st.title('Comparison of SVM Kernels')
-    
+
     # Use session state to track the current form
     if "current_form" not in st.session_state:
         st.session_state["current_form"] = 1    
@@ -43,12 +43,18 @@ def display_form1():
 def display_form2():
     st.session_state["current_form"] = 2
     form2 = st.form("training")
-    form2.subheader('Classifier Training')        
+    form2.subheader('Dataset')     
+
+    display_form2 = pd.read_csv('data_decision_trees.csv', header=None)
+    X = df.iloc[:,:-1].values
+    y = df.iloc[:,-1].values   
+
+    form2.text(df)
     # insert the rest of the code to train the classifier here        
     form2.write('Display the training result')
 
-    submit2 = form2.form_submit_button("Train")
 
+    submit2 = form2.form_submit_button("Train")
     if submit2:        
         display_form3()
 
