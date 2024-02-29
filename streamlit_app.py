@@ -82,7 +82,7 @@ def display_form2():
         form2.text(classification_report(y_test, y_test_pred))
         form2.subheader('VIsualization')
 
-        visualize_classifier(clf, X_test, y_test_pred)
+        visualize_classifier(clfSVM, X_test, y_test_pred)
 
         display_form3()
 
