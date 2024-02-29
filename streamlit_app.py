@@ -56,15 +56,33 @@ def display_form2():
     X = df.iloc[:,:-1].values
     y = df.iloc[:,-1].values   
 
+
     form2.write(df)
     form2.write(df.describe().T)
+
 
     # insert the rest of the code to train the classifier here        
     form2.write('Display the training result')
 
 
     submit2 = form2.form_submit_button("Train")
-    if submit2:        
+    if submit2:     
+           
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=3)
+        clfSVM = svm.SVC(kernel='rbf', C=1000, gamma=1.0)
+        clfSVM.fit(X_train, y_train)
+        y_test_pred = clfSVM.predict(X_test)
+
+        form2.subheader('Confusion Matrix')
+        form2.write('Confusion Matrix')
+        cm = confusion_matrix(y_test, y_test_pred)
+        form2.text(cm)
+        form2.subheader('Performance Metrics')
+        form2.text(classification_report(y_test, y_test_pred))
+        form2.subheader('VIsualization')
+
+        visualize_classifier(clf, X_test, y_test_pred)
+
         display_form3()
 
 def display_form3():
@@ -88,6 +106,48 @@ def display_form3():
     if submit3:
         st.session_state.reset_app = True
         st.session_state.clear()
+
+def visualize_classifier(classifier, X, y, title=''):
+    # Define the minimum and maximum values for X and Y
+    # that will be used in the mesh grid
+    min_x, max_x = X[:, 0].min() - 1.0, X[:, 0].max() + 1.0
+    min_y, max_y = X[:, 1].min() - 1.0, X[:, 1].max() + 1.0
+
+    # Define the step size to use in plotting the mesh grid 
+    mesh_step_size = 0.01
+
+    # Define the mesh grid of X and Y values
+    x_vals, y_vals = np.meshgrid(np.arange(min_x, max_x, mesh_step_size), np.arange(min_y, max_y, mesh_step_size))
+
+    # Run the classifier on the mesh grid
+    output = classifier.predict(np.c_[x_vals.ravel(), y_vals.ravel()])
+
+    # Reshape the output array
+    output = output.reshape(x_vals.shape)
+    
+    # Create the figure and axes objects
+    fig, ax = plt.subplots()
+
+    # Specify the title
+    ax.set_title(title)
+    
+    # Choose a color scheme for the plot
+    ax.pcolormesh(x_vals, y_vals, output, cmap=plt.cm.gray)
+    
+    # Overlay the training points on the plot
+    ax.scatter(X[:, 0], X[:, 1], c=y, s=75, edgecolors='black', linewidth=1, cmap=plt.cm.Paired)
+    
+    # Specify the boundaries of the plot
+    ax.set_xlim(x_vals.min(), x_vals.max())
+    ax.set_ylim(y_vals.min(), y_vals.max())
+    
+    # Specify the ticks on the X and Y axes
+    ax.set_xticks(np.arange(int(X[:, 0].min() - 1), int(X[:, 0].max() + 1), 1.0))
+    ax.set_yticks(np.arange(int(X[:, 1].min() - 1), int(X[:, 1].max() + 1), 1.0))
+
+    
+    form2.pyplot(fig)
+
 
 if __name__ == "__main__":
     app()
