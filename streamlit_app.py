@@ -57,6 +57,7 @@ def display_form2():
     y = df.iloc[:,-1].values   
 
     form2.write(df)
+    form2.write(df.describe().T)
 
     # insert the rest of the code to train the classifier here        
     form2.write('Display the training result')
