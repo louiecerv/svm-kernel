@@ -52,7 +52,7 @@ def display_form2():
     form2 = st.form("training")
     form2.subheader('Dataset')     
 
-    display_form2 = pd.read_csv('data_decision_trees.csv', header=None)
+    df = pd.read_csv('data_decision_trees.csv', header=None)
     X = df.iloc[:,:-1].values
     y = df.iloc[:,-1].values   
 
