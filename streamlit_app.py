@@ -1,4 +1,11 @@
 import streamlit as st
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set()
+from sklearn import svm
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
 
 # Define the Streamlit app
 def app():
