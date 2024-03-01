@@ -151,10 +151,10 @@ def display_form3():
     st.session_state["current_form"] = 3
     form3 = st.form("Visualization")
     form3.subheader('Visualization')
-    form3.text('Click the button to generate a visual plot of the data.')
+    form3.text('Click the button to generate a plot of the data.')
 
-    visualizebn = form3.form_submit_button("Visualize")
-    if visualizebn:                    
+    plotbn = form3.form_submit_button("Plot")
+    if plotbn:                    
 
         clf = st.session_state['clf']
         X_test = st.session_state['X_test']
