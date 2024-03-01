@@ -84,10 +84,10 @@ def display_form1():
 def display_form2():
     st.session_state["current_form"] = 2
 
+    form2 = st.form("training")
     #this session variable provides access to form2
     st.session_state["form2"] = form2
 
-    form2 = st.form("training")
     form2.subheader('Browse the Dataset') 
     
     df = pd.read_csv('data_decision_trees.csv', header=None)
