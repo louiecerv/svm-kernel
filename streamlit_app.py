@@ -34,15 +34,45 @@ def display_form1():
     st.session_state["current_form"] = 1
     form1 = st.form("intro")
     form1.subheader('About the Classifier')
-    form1.write("""
-        (c) 2024 Louie F. Cervantes
-        Department of Computer Science
-        College of Information and Communications Technology
-        West Visayas state University
-    """)
-                
-    form1.write('Replace with the actual description')        
-    #insert the rest of the information here
+
+    text = """Louie F. Cervantes, M.Eng. \n\n
+    CCS 229 - Intelligent Systems
+    Computer Science Department
+    College of Information and Communications Technology
+    West Visayas State University"""
+    form1.text(text)
+
+    form1.subheader('Description')
+    form1.write('Support Vector Machines (SVM):')
+    text = """Supervised learning algorithm: Used for both classification and regression.
+        Linear decision boundary: In high-dimensional spaces, it uses the 
+        kernel trick to create a non-linear decision boundary by implicitly 
+        mapping data points to higher dimensions.
+        Maximizing margin: Aims to find the hyperplane that separates classes 
+        with the largest margin (distance between the hyperplane and the closest data 
+        points on either side). This makes it robust to noise and outliers.
+    """
+    form1.write(text)
+    form1.write('Linear Kernel')
+
+    text = """Formula: K(x_i, x_j) = x_i^T * x_j (essentially the dot product)
+        When to use: Best suited for linearly separable data. Also a 
+        good starting point when you're unsure which kernel to choose, 
+        as it's generally fast and simple."""
+    form1.write(text)
+    form1.write('Polynomial Kernel')
+    text = """Formula: K(x_i, x_j) = (x_i^T * x_j + 1)^d (where 'd' is the degree of the polynomial)
+        When to use: Useful for problems where the relationship between the data points
+        is not simply linear. The degree 'd' controls how flexible the decision boundary can be. """
+    form1.write(text)
+
+    form1.write('Radial Basis Function (RBF) Kernel')
+
+    text = """Formula: K(x_i, x_j) = exp(-gamma ||x_i - x_j||^2) (where 'gamma' is 
+        a parameter that influences the spread of the kernel)
+        When to use: The RBF kernel is a popular choice as it can 
+        handle complex, non-linear decision boundaries. The 'gamma' parameter 
+        allows you to control the influence of nearby data points on the decision boundary."""
 
     submit1 = form1.form_submit_button("Start")
 
