@@ -39,6 +39,9 @@ def app():
     if "y_test_pred" not in st.session_state: 
         st.session_state["y_test_pred"] = []
 
+    if "selected_kernel" not in st.session_state: 
+        st.session_state["selected_kernel"] = []
+
 def display_form1():
     st.session_state["current_form"] = 1
     form1 = st.form("intro")
@@ -111,14 +114,18 @@ def display_form2():
 
     # Create the selecton of classifier
     clf = SVC(kernel='linear')
+    st.session_state['selected_kernel'] = 0
     options = ['Linear', 'Polynomial', 'Radial Basis Function']
     selected_option = form2.selectbox('Select the kernel', options)
     if selected_option =='Polynomial':
+        st.session_state['selected_kernel'] = 1
         clf = SVC(kernel='poly', degree=3)
     elif selected_option=='Radial Basis Function':
+        st.session_state['selected_kernel'] = 2
         clf = SVC(kernel='rbf', gamma=10) 
     else:
         clf = SVC(kernel='linear')
+        st.session_state['selected_kernel'] = 0
 
     # save the clf to the session variable
     st.session_state['clf'] = clf
@@ -160,7 +167,25 @@ def display_form3():
         X_test = st.session_state['X_test']
         y_test_pred = st.session_state['y_test_pred']
         visualize_classifier(form3, clf, X_test, y_test_pred)
-
+        
+        if st.session_state['selected_kernel'] == 0:
+            text = """For partially overlapping clusters, the linear kernel might be
+            able to find a hyperplane (straight line in higher dimensions) that 
+            separates the majority of points, but misclassifications will 
+            likely occur due to the overlap."""
+        elif st.session_state['selected_kernel'] == 1:
+            text = """The polynomial kernel can be more effective with 
+            overlapping clusters compared to the linear kernel. By mapping the 
+            data to a higher-dimensional space, it can potentially find non-linear 
+            decision boundaries that better separate the classes even if 
+            they overlap in the original feature space."""
+        else:
+            text = """The RBF kernel is often the most robust choice for dealing 
+            with overlapping clusters. It uses a Gaussian function to measure 
+            similarity between data points, allowing for flexible and smooth decision
+            boundaries even in complex, non-linear scenarios."""
+            
+        form3.text(text)
     submit3 = form3.form_submit_button("Reset")
     if submit3:
         st.session_state.reset_app = True
