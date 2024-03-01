@@ -167,7 +167,7 @@ def display_form3():
         X_test = st.session_state['X_test']
         y_test_pred = st.session_state['y_test_pred']
         visualize_classifier(form3, clf, X_test, y_test_pred)
-        
+
         if st.session_state['selected_kernel'] == 0:
             text = """For partially overlapping clusters, the linear kernel might be
             able to find a hyperplane (straight line in higher dimensions) that 
@@ -185,7 +185,7 @@ def display_form3():
             similarity between data points, allowing for flexible and smooth decision
             boundaries even in complex, non-linear scenarios."""
             
-        form3.text(text)
+        form3.write(text)
     submit3 = form3.form_submit_button("Reset")
     if submit3:
         st.session_state.reset_app = True
