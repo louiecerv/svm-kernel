@@ -104,6 +104,14 @@ def display_form2():
     X = df.iloc[:,:-1].values
     y = df.iloc[:,-1].values   
 
+    text = """Imagine a triangle formed by the three centroids of class 0. 
+    Class 1 data points will be scattered around the center of the triangle, 
+    with some points falling inside the triangle and overlapping with 
+    class 0 data points. This creates a challenging scenario for SVMs with linear kernels,
+    as a straight line cannot perfectly separate the overlapping regions."""
+
+    form2.write(text)
+
     form2.subheader('Browse the Dataset') 
     form2.write(df)
 
