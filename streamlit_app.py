@@ -30,6 +30,15 @@ def app():
     if "form2" not in st.session_state: 
         st.session_state["form2"] = []
 
+    if "clf" not in st.session_state: 
+        st.session_state["clf"] = []
+
+    if "X_test" not in st.session_state: 
+        st.session_state["X_Test"] = []
+    
+    if "y_test_pred" not in st.session_state: 
+        st.session_state["y_test_pred"] = []
+
 def display_form1():
     st.session_state["current_form"] = 1
     form1 = st.form("intro")
@@ -98,13 +107,30 @@ def display_form2():
     form2.subheader('Dataset Description')
     form2.write(df.describe().T)
 
+    form2.subheader('Select the kernel')
+
+    # Create the selecton of classifier
+    clf = SVC(kernel='linear')
+    options = ['Linear', 'Polynomial', 'Radial Basis Function']
+    selected_option = st.selectbox('Select the kernel', options)
+    if selected_option =='Polynomial':
+        clf = SVC(kernel='poly', degree=3)
+    elif selected_option=='Radial Basic Function':
+        clf = SVC(kernel='rbf', gamma=10) 
+    else:
+        clf = SVC(kernel='linear')
+
+    # save the clf to the session variable
+    st.session_state['clf'] = clf
+
     submit2 = form2.form_submit_button("Train")
     if submit2:     
 
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=3)
-        clfSVM = svm.SVC(kernel='rbf', C=1000, gamma=1.0)
-        clfSVM.fit(X_train, y_train)
-        y_test_pred = clfSVM.predict(X_test)
+
+        clf = st.session_state['clf']
+        clf.fit(X_train, y_train)
+        y_test_pred = clf.predict(X_test)
 
         form2.subheader('Confusion Matrix')
         form2.write('Confusion Matrix')
@@ -112,35 +138,34 @@ def display_form2():
         form2.text(cm)
         form2.subheader('Performance Metrics')
         form2.text(classification_report(y_test, y_test_pred))
-        form2.subheader('VIsualization')
 
-        visualize_classifier(clfSVM, X_test, y_test_pred)
-
+        # save the clf to the session state
+        st.session_state['clf'] = clf
         display_form3()
+
+        # save data to session state
+        st.session_state['X_test'] = X_test
+        st.session_state['y_test_pred'] = y_test_pred
 
 def display_form3():
     st.session_state["current_form"] = 3
-    form3 = st.form("prediction")
-    form3.subheader('Prediction')
-    form3.text('replace with the result of the prediction model.')
-
-    n_clusters = form3.slider(
-        label="Number of Clusters:",
-        min_value=2,
-        max_value=6,
-        value=2,  # Initial value
-    )
-
+    form3 = st.form("Visualization")
+    form3.subheader('Visualization')
+    
     predictbn = form3.form_submit_button("Predict")
     if predictbn:                    
-        form3.text('User selected nclusters = ' + str(n_clusters))
+        form3.subheader('Visualization')
+        clf = st.session_state['clf']
+        X_test = st.session_state['X_test']
+        y_test_pred = st.session_state['y_test_pred']
+        visualize_classifier(form3, clf, X_test, y_test_pred)
 
     submit3 = form3.form_submit_button("Reset")
     if submit3:
         st.session_state.reset_app = True
         st.session_state.clear()
 
-def visualize_classifier(classifier, X, y, title=''):
+def visualize_classifier(form, classifier, X, y, title=''):
     # Define the minimum and maximum values for X and Y
     # that will be used in the mesh grid
     min_x, max_x = X[:, 0].min() - 1.0, X[:, 0].max() + 1.0
@@ -179,7 +204,7 @@ def visualize_classifier(classifier, X, y, title=''):
     ax.set_yticks(np.arange(int(X[:, 1].min() - 1), int(X[:, 1].max() + 1), 1.0))
 
     
-    st.session_state["form2"].pyplot(fig)
+    form.pyplot(fig)
 
 
 if __name__ == "__main__":
