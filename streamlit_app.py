@@ -73,7 +73,8 @@ def display_form1():
         When to use: The RBF kernel is a popular choice as it can 
         handle complex, non-linear decision boundaries. The 'gamma' parameter 
         allows you to control the influence of nearby data points on the decision boundary."""
-
+    form1.write(text)
+    
     submit1 = form1.form_submit_button("Start")
 
     if submit1:
