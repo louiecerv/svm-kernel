@@ -87,15 +87,15 @@ def display_form2():
     form2 = st.form("training")
     #this session variable provides access to form2
     st.session_state["form2"] = form2
-
-    form2.subheader('Browse the Dataset') 
     
     df = pd.read_csv('data_decision_trees.csv', header=None)
     X = df.iloc[:,:-1].values
     y = df.iloc[:,-1].values   
 
-    form2.text('Dataset Description')
+    form2.subheader('Browse the Dataset') 
     form2.write(df)
+
+    form2.subheader('Dataset Description')
     form2.write(df.describe().T)
 
     submit2 = form2.form_submit_button("Train")
