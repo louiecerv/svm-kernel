@@ -150,8 +150,7 @@ def display_form2():
 def display_form3():
     st.session_state["current_form"] = 3
     form3 = st.form("Visualization")
-    form3.subheader('Visualization')
-    
+        
     visualizebn = form3.form_submit_button("Visualize")
     if visualizebn:                    
         form3.subheader('Visualization')
