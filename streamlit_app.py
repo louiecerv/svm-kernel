@@ -83,22 +83,20 @@ def display_form1():
 
 def display_form2():
     st.session_state["current_form"] = 2
-    form2 = st.form("training")
-    form2.subheader('Dataset') 
-    st.session_state["form2"] = form2    
 
+    #this session variable provides access to form2
+    st.session_state["form2"] = form2
+
+    form2 = st.form("training")
+    form2.subheader('Browse the Dataset') 
+    
     df = pd.read_csv('data_decision_trees.csv', header=None)
     X = df.iloc[:,:-1].values
     y = df.iloc[:,-1].values   
 
-
+    form2.text('Dataset Description')
     form2.write(df)
     form2.write(df.describe().T)
-
-
-    # insert the rest of the code to train the classifier here        
-    form2.write('Display the training result')
-
 
     submit2 = form2.form_submit_button("Train")
     if submit2:     
