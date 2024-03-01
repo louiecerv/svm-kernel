@@ -70,11 +70,11 @@ def display_form1():
 
     text = """Formula: K(x_i, x_j) = exp(-gamma ||x_i - x_j||^2) (where 'gamma' is 
         a parameter that influences the spread of the kernel)
-        When to use: The RBF kernel is a popular choice as it can 
+        \nWhen to use: The RBF kernel is a popular choice as it can 
         handle complex, non-linear decision boundaries. The 'gamma' parameter 
         allows you to control the influence of nearby data points on the decision boundary."""
     form1.write(text)
-    
+
     submit1 = form1.form_submit_button("Start")
 
     if submit1:
