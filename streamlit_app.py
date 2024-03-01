@@ -34,7 +34,7 @@ def display_form1():
     st.session_state["current_form"] = 1
     form1 = st.form("intro")
 
-    text = """Louie F. Cervantes, M.Eng. \n\n
+    text = """Louie F. Cervantes, M. Eng. (Information Engineering) \n\n
     CCS 229 - Intelligent Systems
     Computer Science Department
     College of Information and Communications Technology
