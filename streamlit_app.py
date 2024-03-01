@@ -112,7 +112,7 @@ def display_form2():
     # Create the selecton of classifier
     clf = SVC(kernel='linear')
     options = ['Linear', 'Polynomial', 'Radial Basis Function']
-    selected_option = st.selectbox('Select the kernel', options)
+    selected_option = form2.selectbox('Select the kernel', options)
     if selected_option =='Polynomial':
         clf = SVC(kernel='poly', degree=3)
     elif selected_option=='Radial Basic Function':
