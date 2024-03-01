@@ -42,8 +42,8 @@ def display_form1():
     West Visayas State University"""
     form1.text(text)
 
-    form1.subheader('Description')
-    form1.write('Support Vector Machines (SVM):')
+    form1.header('Description')
+    form1.subheader('Support Vector Machines (SVM):')
     text = """Supervised learning algorithm: Used for both classification and regression.
         Linear decision boundary: In high-dimensional spaces, it uses the 
         kernel trick to create a non-linear decision boundary by implicitly 
@@ -53,20 +53,20 @@ def display_form1():
         points on either side). This makes it robust to noise and outliers.
     """
     form1.write(text)
-    form1.write('Linear Kernel')
+    form1.subheader('Linear Kernel')
 
     text = """Formula: K(x_i, x_j) = x_i^T * x_j (essentially the dot product)
         \nWhen to use: Best suited for linearly separable data. Also a 
         good starting point when you're unsure which kernel to choose, 
         as it's generally fast and simple."""
     form1.write(text)
-    form1.write('Polynomial Kernel')
+    form1.subheader('Polynomial Kernel')
     text = """Formula: K(x_i, x_j) = (x_i^T * x_j + 1)^d (where 'd' is the degree of the polynomial)
         \nWhen to use: Useful for problems where the relationship between the data points
         is not simply linear. The degree 'd' controls how flexible the decision boundary can be. """
     form1.write(text)
 
-    form1.write('Radial Basis Function (RBF) Kernel')
+    form1.subheader('Radial Basis Function (RBF) Kernel')
 
     text = """Formula: K(x_i, x_j) = exp(-gamma ||x_i - x_j||^2) (where 'gamma' is 
         a parameter that influences the spread of the kernel)
