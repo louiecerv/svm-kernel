@@ -56,13 +56,13 @@ def display_form1():
     form1.write('Linear Kernel')
 
     text = """Formula: K(x_i, x_j) = x_i^T * x_j (essentially the dot product)
-        When to use: Best suited for linearly separable data. Also a 
+        \nWhen to use: Best suited for linearly separable data. Also a 
         good starting point when you're unsure which kernel to choose, 
         as it's generally fast and simple."""
     form1.write(text)
     form1.write('Polynomial Kernel')
     text = """Formula: K(x_i, x_j) = (x_i^T * x_j + 1)^d (where 'd' is the degree of the polynomial)
-        When to use: Useful for problems where the relationship between the data points
+        \nWhen to use: Useful for problems where the relationship between the data points
         is not simply linear. The degree 'd' controls how flexible the decision boundary can be. """
     form1.write(text)
 
