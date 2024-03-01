@@ -33,7 +33,6 @@ def app():
 def display_form1():
     st.session_state["current_form"] = 1
     form1 = st.form("intro")
-    form1.subheader('About the Classifier')
 
     text = """Louie F. Cervantes, M.Eng. \n\n
     CCS 229 - Intelligent Systems
