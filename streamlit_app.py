@@ -152,7 +152,7 @@ def display_form3():
     form3 = st.form("Visualization")
     form3.subheader('Visualization')
     
-    predictbn = form3.form_submit_button("Predict")
+    visualizebn = form3.form_submit_button("Visualize")
     if predictbn:                    
         form3.subheader('Visualization')
         clf = st.session_state['clf']
