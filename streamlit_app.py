@@ -115,7 +115,7 @@ def display_form2():
     selected_option = form2.selectbox('Select the kernel', options)
     if selected_option =='Polynomial':
         clf = SVC(kernel='poly', degree=3)
-    elif selected_option=='Radial Basic Function':
+    elif selected_option=='Radial Basis Function':
         clf = SVC(kernel='rbf', gamma=10) 
     else:
         clf = SVC(kernel='linear')
